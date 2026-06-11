@@ -1,0 +1,125 @@
+{
+  "response_code": 0,
+  "results": [
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "General%20Knowledge",
+      "question": "Which%20of%20these%20Nicktoons%20were%20NOT%20originally%20a%20short%20on%20Oh%20Yeah%21%20Cartoons%20before%20becoming%20their%20own%20series%3F",
+      "correct_answer": "Benar1",
+      "incorrect_answers": [
+        "ChalkZone",
+        "My%20Life%20as%20a%20Teenage%20Robot",
+        "The%20Fairly%20OddParents"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "General%20Knowledge",
+      "question": "Out%20of%20these%20four%20buildings%2C%20which%20one%20is%20the%20tallest%2C%20with%20a%20height%20of%201%2C250%20ft%20%28381%20m%29%3F",
+      "correct_answer": "Benar2",
+      "incorrect_answers": [
+        "Bank%20of%20China%20Tower%2C%20Hong%20Kong",
+        "Federation%20Tower%2C%20Russia",
+        "Gevora%20Hotal%2C%20United%20Arab%20Emirates"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "General%20Knowledge",
+      "question": "Which%20of%20these%20American%20singers%20and%20songwriters%20won%20a%20Nobel%20Prize%20in%20Literature%3F",
+      "correct_answer": "Benar",
+      "incorrect_answers": [
+        "Buddy%20Holly",
+        "Johnny%20Cash",
+        "Alice%20Cooper"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "General%20Knowledge",
+      "question": "What%20is%20the%20German%20word%20for%20%22spoon%22%3F",
+      "correct_answer": "Benar",
+      "incorrect_answers": [
+        "Gabel",
+        "Messer",
+        "Essst%C3%A4bchen"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "General%20Knowledge",
+      "question": "What%20did%20the%20Spanish%20autonomous%20community%20of%20Catalonia%20ban%20in%202010%2C%20that%20took%20effect%20in%202012%3F",
+      "correct_answer": "Benar",
+      "incorrect_answers": [
+        "Fiestas",
+        "Flamenco",
+        "Mariachi"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "General%20Knowledge",
+      "question": "Which%20language%20is%20NOT%20Indo-European%3F",
+      "correct_answer": "Benar",
+      "incorrect_answers": [
+        "Russian",
+        "Greek",
+        "Latvian"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "General%20Knowledge",
+      "question": "Which%20American%20manufactured%20submachine%20gun%20was%20informally%20known%20by%20the%20American%20soldiers%20that%20used%20it%20as%20%22Grease%20Gun%22%3F",
+      "correct_answer": "Benar",
+      "incorrect_answers": [
+        "Colt%209mm",
+        "Thompson",
+        "MAC-10"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "General%20Knowledge",
+      "question": "What%20name%20represents%20the%20letter%20%22M%22%20in%20the%20NATO%20phonetic%20alphabet%3F",
+      "correct_answer": "Benar",
+      "incorrect_answers": [
+        "Matthew",
+        "Mark",
+        "Max"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "General%20Knowledge",
+      "question": "The%20term%20%22scientist%22%20was%20coined%20in%20which%20year%3F",
+      "correct_answer": "Benar",
+      "incorrect_answers": [
+        "1933",
+        "1942",
+        "1796"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "General%20Knowledge",
+      "question": "What%20English%20word%20means%20to%20%22think%20deeply%22%3F",
+      "correct_answer": "Benar",
+      "incorrect_answers": [
+        "Confiscate",
+        "Constipate",
+        "Condensate"
+      ]
+    }
+  ]
+}
