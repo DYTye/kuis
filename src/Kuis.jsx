@@ -29,10 +29,10 @@ function Kuis() {
 
   useEffect(() => {
     async function fetchApi() {
-      const respons = await fetch(
-        "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
-      );
-      // const respons = await fetch("soal.json");
+      // const respons = await fetch(
+      //   "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
+      // );
+      const respons = await fetch("soal.json");
 
       const data = await respons.json();
       setHasilData(data.results);
@@ -199,7 +199,7 @@ function Kuis() {
     );
   }
   return (
-    <div className="relative bg-[url(bg.png)] bg-center scale  h-screen overflow-y-hidden">
+    <div style={{ backgroundImage: "url('/bg.png')" }} className=" bg-center scale  h-screen overflow-y-hidden">
       <div className="m-20 absolute top-0 left-0 font-bold text-3xl text-green-900">
         SCORE : {totalNiai}
       </div>
