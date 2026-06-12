@@ -21,9 +21,9 @@ function score() {
   const ijep = jejep();
 
   return (
-    <div style={{ backgroundImage: "url('/bg.png')" }} className=" bg-center scale  h-screen  flex flex-col items-center justify-center">
+    <div style={{ backgroundImage: "url('/bg.webp')" }} className=" bg-center scale  h-screen  flex flex-col items-center justify-center">
       <div className="h-1/2 flex justify-center mx-auto">
-        <img src={ijep.stiker} alt="" className="h-230 w-full object-contain animate-[float_3s_ease-in-out_infinite] [@keyframes_float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}]" />
+        <img src={ijep.stiker} alt="" className="h-230 w-full object-contain " />
       </div>
       <div className="w-full h-1/3 relative w-fit mx-auto p-10 lg:p-20">
         <div className="absolute inset-0 bg-white/70 backdrop-blur-sm rounded-3xl"></div>

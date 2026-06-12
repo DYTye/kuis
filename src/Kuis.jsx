@@ -29,10 +29,10 @@ function Kuis() {
 
   useEffect(() => {
     async function fetchApi() {
-      const respons = await fetch(
-        "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
-      );
-      // const respons = await fetch("soal.json");
+      // const respons = await fetch(
+      //   "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
+      // );
+      const respons = await fetch("soal.json");
 
       const data = await respons.json();
       setHasilData(data.results);
@@ -199,7 +199,7 @@ function Kuis() {
     );
   }
   return (
-    <div style={{ backgroundImage: "url('/bg.png')" }} className=" bg-center scale  h-screen overflow-y-hidden">
+    <div style={{ backgroundImage: "url('/bg.webp')" }} className=" bg-center scale  h-screen overflow-y-hidden">
       <div className="m-20 absolute top-0 left-0 font-bold text-3xl text-green-900">
         SCORE : {totalNiai}
       </div>
@@ -212,7 +212,7 @@ function Kuis() {
       </div>
       <div className="max-w-sm  lg:max-w-fit relative w-fit mx-auto p-10 lg:p-20">
         <div></div>
-        <div className="absolute inset-0 bg-white/70 backdrop-blur-sm rounded-3xl"></div>
+        <div className="absolute inset-0 bg-white/40 backdrop-blur-sm rounded-3xl"></div>
         <div className="mb-10 text-sm lg:text-2xl font-bold text-center relative z-10 text-shadow-sm p-2 rounded-md underline underline-offset-2">
           {decodeURIComponent(SoalAktif?.question)}
         </div>
