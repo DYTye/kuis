@@ -199,7 +199,7 @@ function Kuis() {
     );
   }
   return (
-    <div className="relative bg-[url(bg.PNG)] bg-center scale  h-screen overflow-y-hidden">
+    <div className="relative bg-[url(bg.png)] bg-center scale  h-screen overflow-y-hidden">
       <div className="m-20 absolute top-0 left-0 font-bold text-3xl text-green-900">
         SCORE : {totalNiai}
       </div>
