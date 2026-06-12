@@ -166,7 +166,7 @@ function Kuis() {
   if (!mulaiKuis) {
     return (
       <div className="relative  h-screen flex flex-col justify-center items-center gap-6 text-center px-4 ">
-        <div className="absolute inset-0 bg-gray-900 bg-center h-screen flex flex-col justify-center items-center gap-6 text-center px-4 animate-pulse [animation-duration:3000ms]"></div>
+        <div className="absolute inset-0 bg-gray-900 bg-center h-screen flex flex-col justify-center items-center gap-6 text-center px-4"></div>
 
         <div className="max-w-xl bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 shadow-2xl">
           <h1 className="text-3xl font-black text-pink-500 tracking-widest mb-4">
