@@ -12,6 +12,7 @@ function Kuis() {
   const [jawabanUser, setJawabanUser] = useState([]);
   const [totalNiai, setTotalNilai] = useState(0);
   const [mulaiKuis, setMulaiKuis] = useState(false);
+  const [waktu, SetWaktu] = useState();
   const navigate = useNavigate();
 
   function ranInt() {
@@ -28,10 +29,10 @@ function Kuis() {
 
   useEffect(() => {
     async function fetchApi() {
-      // const respons = await fetch(
-      //   "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
-      // );
-      const respons = await fetch("soal.json");
+      const respons = await fetch(
+        "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
+      );
+      // const respons = await fetch("soal.json");
 
       const data = await respons.json();
       setHasilData(data.results);
@@ -82,6 +83,14 @@ function Kuis() {
       }, 500);
     }
   }
+  function timeOut() {
+    setTotalNilai((x) => {
+      setTimeout(() => {
+        navigate("/score", { state: { score: x } });
+      }, 500);
+      return x;
+    });
+  }
 
   function jawabDanNiali(e) {
     const tangkapJawaban = decodeURIComponent(OpsiAktif[urutanOpsi[e]]);
@@ -124,6 +133,28 @@ function Kuis() {
     return { comment, stiker };
   }
   const ijep = jejep();
+
+  useEffect(() => {
+    let s = 1;
+    let mesinTimer;
+    function timer() {
+      const menit = Math.floor(s / 60);
+      const detik = Math.floor(s % 60);
+      if (s <= 120) {
+        // console.log(s++);
+        // console.log(menit + ":" + detik);
+        s++;
+      } else {
+        clearInterval(mesinTimer);
+        timeOut();
+      }
+      SetWaktu(menit + ":" + detik);
+    }
+
+    mesinTimer = setInterval(() => {
+      timer();
+    }, 1000);
+  }, []);
 
   if (loading) {
     return (
@@ -173,7 +204,7 @@ function Kuis() {
         SCORE : {totalNiai}
       </div>
       <div className="m-20 absolute top-0 right-0 font-bold text-3xl text-green-900">
-        05:00
+        {waktu}
       </div>
 
       <div className="h-1/2 flex justify-center mx-auto">
