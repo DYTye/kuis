@@ -38,7 +38,7 @@ function Kuis() {
       if (data.results && data.results.length > 0) {
         setHasilData(data.results);
         ranInt();
-        setUrutanOpsi(hasilAcak);
+        
       }
 
       setLoading(false);
