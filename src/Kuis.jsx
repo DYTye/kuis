@@ -32,13 +32,11 @@ function Kuis() {
         "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
       );
       // const respons = await fetch("soal.json");
-      
 
       const data = await respons.json();
       if (data.results && data.results.length > 0) {
         setHasilData(data.results);
         ranInt();
-        
       }
 
       setLoading(false);
@@ -175,6 +173,16 @@ function Kuis() {
     return (
       <div className="h-screen bg-[#212326] flex items-center justify-center text-white text-2xl font-bold font-mono animate-pulse">
         Kuis Dadakan, Dead or Alive?
+        <div className="hidden pointer-events-none absolute opacity-0 w-1 h-1 overflow-hidden">
+          <img src="0.png" alt="preload" />
+          <img src="1.png" alt="preload" />
+          <img src="2.png" alt="preload" />
+          <img src="3.png" alt="preload" />
+          <img src="4.png" alt="preload" />
+          <img src="5.png" alt="preload" />
+          <img src="6.png" alt="preload" />
+          <img src="bg.webp" alt="preload" />
+        </div>
       </div>
     );
   }
@@ -290,16 +298,6 @@ function Kuis() {
             {decodeURIComponent(OpsiAktif[urutanOpsi[3]])}
           </button>
         </div>
-      </div>
-      <div className="hidden pointer-events-none absolute opacity-0 w-1 h-1 overflow-hidden">
-        <img src="0.png" alt="preload" />
-        <img src="1.png" alt="preload" />
-        <img src="2.png" alt="preload" />
-        <img src="3.png" alt="preload" />
-        <img src="4.png" alt="preload" />
-        <img src="5.png" alt="preload" />
-        <img src="6.png" alt="preload" />
-        <img src="bg.webp" alt="preload" />
       </div>
     </div>
   );
