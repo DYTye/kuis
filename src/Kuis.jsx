@@ -293,9 +293,13 @@ function Kuis() {
       </div>
       <div className="hidden pointer-events-none absolute opacity-0 w-1 h-1 overflow-hidden">
         <img src="0.png" alt="preload" />
+        <img src="1.png" alt="preload" />
+        <img src="2.png" alt="preload" />
+        <img src="3.png" alt="preload" />
+        <img src="4.png" alt="preload" />
+        <img src="5.png" alt="preload" />
         <img src="6.png" alt="preload" />
-        <img src="10.png" alt="preload" />
-        <img src="bgini.webp" alt="preload" />
+        <img src="bg.webp" alt="preload" />
       </div>
     </div>
   );
