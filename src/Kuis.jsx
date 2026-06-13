@@ -22,9 +22,8 @@ function Kuis() {
       const potong = Math.floor(Math.random() * scale.length);
       const hasilPotong = scale.splice(potong, 1)[0];
       hasilAcak.push(hasilPotong);
-      setUrutanOpsi(hasilAcak);
     }
-    return setUrutanOpsi;
+    setUrutanOpsi(hasilAcak);
   }
 
   useEffect(() => {
@@ -33,11 +32,15 @@ function Kuis() {
         "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
       );
       // const respons = await fetch("soal.json");
+      
 
       const data = await respons.json();
-      setHasilData(data.results);
+      if (data.results && data.results.length > 0) {
+        setHasilData(data.results);
+        ranInt();
+        setUrutanOpsi(hasilAcak);
+      }
 
-      ranInt();
       setLoading(false);
     }
     fetchApi();
@@ -71,7 +74,8 @@ function Kuis() {
     if (indexSoal > 0) setIndexSoal(indexSoal - 1);
   }
 
-  let SoalAktif = hasilData[indexSoal];
+  let SoalAktif =
+    hasilData && hasilData.length > 0 ? hasilData[indexSoal] : null;
   let OpsiAktif = SoalAktif
     ? [SoalAktif.correct_answer, ...SoalAktif.incorrect_answers]
     : [];
@@ -100,7 +104,7 @@ function Kuis() {
     let score = totalNiai;
     console.log("tangkap jawaban:" + tangkapJawaban);
     if (tangkapJawaban === kunciJawaban) {
-      score = totalNiai +10;
+      score = totalNiai + 10;
       setTotalNilai(score);
     }
     if (indexSoal === 9) {
