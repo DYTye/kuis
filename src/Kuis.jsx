@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./style.css";
 import "./score.jsx";
 import { Navigate, useNavigate } from "react-router-dom";
 
@@ -13,6 +12,7 @@ function Kuis() {
   const [totalNiai, setTotalNilai] = useState(0);
   const [mulaiKuis, setMulaiKuis] = useState(false);
   const [waktu, SetWaktu] = useState();
+  const [startGame, setStartGame] = useState(false);
   const navigate = useNavigate();
 
   function ranInt() {
@@ -29,10 +29,10 @@ function Kuis() {
 
   useEffect(() => {
     async function fetchApi() {
-      const respons = await fetch(
-        "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
-      );
-      // const respons = await fetch("soal.json");
+      // const respons = await fetch(
+      //   "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
+      // );
+      const respons = await fetch("soal.json");
 
       const data = await respons.json();
       setHasilData(data.results);
@@ -76,13 +76,6 @@ function Kuis() {
     ? [SoalAktif.correct_answer, ...SoalAktif.incorrect_answers]
     : [];
 
-  function selesai() {
-    if (jawabanUser.length === 10) {
-      setTimeout(() => {
-        navigate("/score", { state: { score: totalNiai } });
-      }, 500);
-    }
-  }
   function timeOut() {
     setTotalNilai((x) => {
       setTimeout(() => {
@@ -104,10 +97,17 @@ function Kuis() {
       },
     ]);
 
-    let score = 0;
+    let score = totalNiai;
     console.log("tangkap jawaban:" + tangkapJawaban);
     if (tangkapJawaban === kunciJawaban) {
-      setTotalNilai((score) => score + 10);
+      score = totalNiai +10;
+      setTotalNilai(score);
+    }
+    if (indexSoal === 9) {
+      localStorage.setItem("KUIS_SCORE_TERAKHIR", score);
+      setTimeout(() => {
+        navigate("/score", { state: { score: score } });
+      }, 500);
     }
 
     return totalNiai;
@@ -154,7 +154,18 @@ function Kuis() {
     mesinTimer = setInterval(() => {
       timer();
     }, 1000);
-  }, []);
+    return () => {
+      clearInterval(mesinTimer);
+    };
+  }, [startGame]);
+
+  function startKuis() {
+    setMulaiKuis(true);
+  }
+
+  function mulaiGame() {
+    setStartGame(true);
+  }
 
   if (loading) {
     return (
@@ -189,7 +200,10 @@ function Kuis() {
           </div>
 
           <button
-            onClick={() => setMulaiKuis(true)}
+            onClick={() => {
+              startKuis();
+              mulaiGame();
+            }}
             className="mt-8 px-8 py-4 bg-[#831C91] hover:bg-[#D23B7B] hover:scale-105 transition-all text-white font-black text-xl rounded-2xl shadow-lg tracking-wider"
           >
             MULAI!
@@ -199,7 +213,10 @@ function Kuis() {
     );
   }
   return (
-    <div style={{ backgroundImage: "url('/bg.webp')" }} className=" bg-center scale  h-screen overflow-y-hidden">
+    <div
+      style={{ backgroundImage: "url('/bg.webp')" }}
+      className=" bg-center scale  h-screen overflow-y-hidden space-y-3 font-mono"
+    >
       <div className="m-20 absolute top-0 left-0 font-bold text-3xl text-green-900">
         SCORE : {totalNiai}
       </div>
@@ -212,23 +229,20 @@ function Kuis() {
       </div>
       <div className="max-w-sm  lg:max-w-fit relative w-fit mx-auto p-10 lg:p-20">
         <div></div>
-        <div className="absolute inset-0 bg-white/40 backdrop-blur-sm rounded-3xl"></div>
-        <div className="mb-10 text-sm lg:text-2xl font-bold text-center relative z-10 text-shadow-sm p-2 rounded-md underline underline-offset-2">
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm rounded-3xl"></div>
+        <div className="mb-10 text-sm lg:text-xl font-bold text-center relative z-10 text-shadow-sm p-2 rounded-md text-white">
           {decodeURIComponent(SoalAktif?.question)}
         </div>
-        {selesai()};
         <div className="flex flex-col lg:flex-row gap-2 max-w-sm lg:max-w-fit mx-auto relative z-10">
           <button
             onClick={() => {
               jawabDanNiali(0);
-              {
-                nextSoal();
-              }
-              {
-                indexSoal != 9 ? ranInt() : null;
-              }
+
+              nextSoal();
+
+              indexSoal != 9 ? ranInt() : null;
             }}
-            className={`p-5 bg-green-900 text-white rounded-xls font-bold text-sm lg:text-xl hover:bg-green-700 drop-shadow-md drop-shadow-black`}
+            className={`p-5 bg-green-900 text-white rounded-xl font-bold text-sm lg:text-xl hover:bg-green-700 drop-shadow-md drop-shadow-black cursor-pointer hover:scale-105`}
           >
             {decodeURIComponent(OpsiAktif[urutanOpsi[0]])}
           </button>
@@ -236,14 +250,12 @@ function Kuis() {
           <button
             onClick={() => {
               jawabDanNiali(1);
-              {
-                nextSoal();
-              }
-              {
-                indexSoal != 9 ? ranInt() : null;
-              }
+
+              nextSoal();
+
+              indexSoal != 9 ? ranInt() : null;
             }}
-            className={`p-5 bg-green-900 text-white rounded-xls font-bold text-sm lg:text-xl hover:bg-green-700 drop-shadow-md drop-shadow-black`}
+            className={`p-5 bg-green-900 text-white rounded-xl font-bold text-sm lg:text-xl hover:bg-green-700 drop-shadow-md drop-shadow-black cursor-pointer hover:scale-105`}
           >
             {decodeURIComponent(OpsiAktif[urutanOpsi[1]])}
           </button>
@@ -251,14 +263,12 @@ function Kuis() {
           <button
             onClick={() => {
               jawabDanNiali(2);
-              {
-                nextSoal();
-              }
-              {
-                indexSoal != 9 ? ranInt() : null;
-              }
+
+              nextSoal();
+
+              indexSoal != 9 ? ranInt() : null;
             }}
-            className={`p-5 bg-green-900 text-white rounded-xls font-bold text-sm lg:text-xl hover:bg-green-700 drop-shadow-md drop-shadow-black`}
+            className={`p-5 bg-green-900 text-white rounded-xl font-bold text-sm lg:text-xl hover:bg-green-700 drop-shadow-md drop-shadow-black cursor-pointer hover:scale-105`}
           >
             {decodeURIComponent(OpsiAktif[urutanOpsi[2]])}
           </button>
@@ -266,14 +276,12 @@ function Kuis() {
           <button
             onClick={() => {
               jawabDanNiali(3);
-              {
-                nextSoal();
-              }
-              {
-                indexSoal != 9 ? ranInt() : null;
-              }
+
+              nextSoal();
+
+              indexSoal != 9 ? ranInt() : null;
             }}
-            className={`p-5 bg-green-900 text-white rounded-xls font-bold text-sm lg:text-xl hover:bg-green-700 drop-shadow-md drop-shadow-black`}
+            className={`p-5 bg-green-900 text-white rounded-xl font-bold text-sm lg:text-xl hover:bg-green-700 drop-shadow-md drop-shadow-black cursor-pointer hover:scale-105`}
           >
             {decodeURIComponent(OpsiAktif[urutanOpsi[3]])}
           </button>
