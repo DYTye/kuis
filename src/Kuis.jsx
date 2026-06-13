@@ -29,10 +29,10 @@ function Kuis() {
 
   useEffect(() => {
     async function fetchApi() {
-      // const respons = await fetch(
-      //   "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
-      // );
-      const respons = await fetch("soal.json");
+      const respons = await fetch(
+        "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
+      );
+      // const respons = await fetch("soal.json");
 
       const data = await respons.json();
       setHasilData(data.results);
