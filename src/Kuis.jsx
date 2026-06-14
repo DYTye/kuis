@@ -5,14 +5,25 @@ import { Navigate, useNavigate } from "react-router-dom";
 function Kuis() {
   const [hasilData, setHasilData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [indexSoal, setIndexSoal] = useState(0);
+  const [indexSoal, setIndexSoal] = useState(() => {
+    const savedIndex = localStorage.getItem("soal_terakhir");
+
+    return savedIndex ? Number(savedIndex) : 0;
+  });
   const [tombol, setTombol] = useState(false);
   const [urutanOpsi, setUrutanOpsi] = useState([]);
   const [jawabanUser, setJawabanUser] = useState([]);
-  const [totalNiai, setTotalNilai] = useState(0);
+  const [totalNiai, setTotalNilai] = useState(() => {
+    const savedScore = localStorage.getItem("score_terakhir");
+
+    return savedScore ? Number(savedScore) : 0;
+  });
   const [mulaiKuis, setMulaiKuis] = useState(false);
-  const [waktu, SetWaktu] = useState();
-  const [startGame, setStartGame] = useState(false);
+  const [waktu, SetWaktu] = useState(() => {
+    const savedTimer = localStorage.getItem("timer_terakhir");
+
+    return savedTimer ? Number(savedTimer) : 0;
+  });
   const navigate = useNavigate();
 
   function ranInt() {
@@ -28,15 +39,21 @@ function Kuis() {
 
   useEffect(() => {
     async function fetchApi() {
-      const respons = await fetch(
-        "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
-      );
-      // const respons = await fetch("soal.json");
+      // const respons = await fetch(
+      //   "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
+      // );
+      const respons = await fetch("soal.json");
 
       const data = await respons.json();
       if (data.results && data.results.length > 0) {
         setHasilData(data.results);
         ranInt();
+      }
+
+      const savedIndex = Number(localStorage.getItem("soal_terakhir"));
+
+      if (savedIndex > 0) {
+        setMulaiKuis(true);
       }
 
       setLoading(false);
@@ -65,11 +82,11 @@ function Kuis() {
   }
 
   function nextSoal() {
-    if (indexSoal < 9) setIndexSoal(indexSoal + 1);
-  }
-
-  function prevSoal() {
-    if (indexSoal > 0) setIndexSoal(indexSoal - 1);
+    if (indexSoal < 9) {
+      const nextIndex = indexSoal + 1;
+      setIndexSoal(nextIndex);
+      localStorage.setItem("soal_terakhir", nextIndex);
+    }
   }
 
   let SoalAktif =
@@ -104,9 +121,9 @@ function Kuis() {
     if (tangkapJawaban === kunciJawaban) {
       score = totalNiai + 10;
       setTotalNilai(score);
+      localStorage.setItem("score_terakhir", score);
     }
     if (indexSoal === 9) {
-      localStorage.setItem("KUIS_SCORE_TERAKHIR", score);
       setTimeout(() => {
         navigate("/score", { state: { score: score } });
       }, 500);
@@ -137,11 +154,12 @@ function Kuis() {
   const ijep = jejep();
 
   useEffect(() => {
-    let s = 1;
+    
     let mesinTimer;
+    let timer_terakhir;
+    const savedDetik = localStorage.getItem("timer_terakhir");
+    let s = savedDetik ? Number(savedDetik) : 0;
     function timer() {
-      const menit = Math.floor(s / 60);
-      const detik = Math.floor(s % 60);
       if (s <= 120) {
         // console.log(s++);
         // console.log(menit + ":" + detik);
@@ -150,6 +168,10 @@ function Kuis() {
         clearInterval(mesinTimer);
         timeOut();
       }
+      timer_terakhir = s;
+      localStorage.setItem("timer_terakhir", timer_terakhir);
+      const menit = Math.floor(timer_terakhir / 60);
+      const detik = Math.floor(timer_terakhir % 60);
       SetWaktu(menit + ":" + detik);
     }
 
@@ -159,14 +181,10 @@ function Kuis() {
     return () => {
       clearInterval(mesinTimer);
     };
-  }, [startGame]);
+  }, [mulaiKuis]);
 
   function startKuis() {
     setMulaiKuis(true);
-  }
-
-  function mulaiGame() {
-    setStartGame(true);
   }
 
   if (loading) {
@@ -214,7 +232,6 @@ function Kuis() {
           <button
             onClick={() => {
               startKuis();
-              mulaiGame();
             }}
             className="mt-8 px-8 py-4 bg-[#831C91] hover:bg-[#D23B7B] hover:scale-105 transition-all text-white font-black text-xl rounded-2xl shadow-lg tracking-wider"
           >
@@ -229,10 +246,10 @@ function Kuis() {
       style={{ backgroundImage: "url('/bg.webp')" }}
       className=" bg-center scale  h-screen overflow-y-hidden space-y-3 font-mono"
     >
-      <div className="m-20 absolute top-0 left-0 font-bold text-3xl text-green-900">
+      <div className="m-20 absolute top-0 left-0 font-bold text-3xl text-[#565e51]">
         SCORE : {totalNiai}
       </div>
-      <div className="m-20 absolute top-0 right-0 font-bold text-3xl text-green-900">
+      <div className="m-20 absolute top-0 right-0 font-bold text-3xl text-[#565e51]">
         {waktu}
       </div>
 
@@ -240,7 +257,6 @@ function Kuis() {
         <img src={ijep.stiker} alt="" className="h-230 w-full object-contain" />
       </div>
       <div className="max-w-sm  lg:max-w-fit relative w-fit mx-auto p-10 lg:p-20">
-        <div></div>
         <div className="absolute inset-0 bg-black/40 backdrop-blur-sm rounded-3xl"></div>
         <div className="mb-10 text-sm lg:text-xl font-bold text-center relative z-10 text-shadow-sm p-2 rounded-md text-white">
           {decodeURIComponent(SoalAktif?.question)}

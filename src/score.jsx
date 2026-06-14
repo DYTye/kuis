@@ -7,11 +7,18 @@ import {
   UserButton,
   SignOutButton,
 } from "@clerk/react";
+import { useEffect } from "react";
 
 function score() {
+  useEffect(() => {
+    localStorage.removeItem("soal_terakhir");
+    localStorage.removeItem("score_terakhir");
+    localStorage.removeItem("timer_terakhir");
+  }, []);
+
   const location = useLocation();
   const totalSkor =
-    location.state?.score ?? localStorage.getItem("KUIS_SCORE_TERAKHIR");
+    location.state?.score ?? localStorage.getItem("score_terakhir");
   let comment = "";
   let stiker = "";
   function jejep() {
@@ -41,10 +48,10 @@ function score() {
           className="h-230 w-full object-contain "
         />
       </div>
-      <div className="w-full h-1/3 relative w-fit mx-auto p-10 lg:p-20">
-        <div className="absolute inset-0 bg-white/70 backdrop-blur-sm rounded-3xl"></div>
+      <div className="h-1/3 relative w-fit mx-auto p-10 lg:p-20">
+        <div className="absolute inset-0 bg-black/40  backdrop-blur-sm rounded-3xl"></div>
         <div className="text-lg lg:text-2xl font-bold text-center relative z-10 ">
-          <div className="flex flex-col gap-2 text-xl lg:text-5xl">
+          <div className="flex flex-col gap-2 text-xl lg:text-5xl text-white font-mono">
             <div>NILAI KAMU {totalSkor}</div>
             <div>{ijep.comment}</div>
           </div>

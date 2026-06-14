@@ -10,10 +10,10 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router";
 import { useEffect } from "react";
 
 function login() {
-  const { isSignedIn } = useAuth(); // 🕵️‍♂️ Satpam internal Clerk mancek token login didit
+  const { isSignedIn } = useAuth(); 
   const navigate = useNavigate();
 
-  // ⚡ LOJIAK PAKSO REDIRECT: Kok status user murni alah login, seret kaku badannyo ka /kuis!
+  
   useEffect(() => {
     if (isSignedIn) {
       navigate("/kuis");
