@@ -28,7 +28,7 @@ function login() {
           <div className="max-w-xl bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 shadow-2xl">
             <div className="text-amber-50 font-medium text-lg space-y-3 font-mono">
               <h1 className="text-2xl font-bold text-white font-mono">
-                Welcome To Sidang With Frank
+                Welcome To Kuis With Frank
               </h1>
               <Show when="signed-out">
                 <div className="flex flex-col">
