@@ -39,10 +39,10 @@ function Kuis() {
 
   useEffect(() => {
     async function fetchApi() {
-      // const respons = await fetch(
-      //   "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
-      // );
-      const respons = await fetch("soal.json");
+      const respons = await fetch(
+        "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
+      );
+      // const respons = await fetch("soal.json");
 
       const data = await respons.json();
       if (data.results && data.results.length > 0) {
@@ -50,9 +50,9 @@ function Kuis() {
         ranInt();
       }
 
-      const savedIndex = Number(localStorage.getItem("soal_terakhir"));
+      
 
-      if (savedIndex > 0) {
+      if (indexSoal > 0) {
         setMulaiKuis(true);
       }
 
@@ -106,7 +106,7 @@ function Kuis() {
 
   function jawabDanNiali(e) {
     const tangkapJawaban = decodeURIComponent(OpsiAktif[urutanOpsi[e]]);
-    const kunciJawaban = SoalAktif?.correct_answer;
+    const kunciJawaban = decodeURIComponent(SoalAktif?.correct_answer);
 
     setJawabanUser([
       ...jawabanUser,
@@ -154,7 +154,7 @@ function Kuis() {
   const ijep = jejep();
 
   useEffect(() => {
-    
+    if(!mulaiKuis) return;
     let mesinTimer;
     let timer_terakhir;
     const savedDetik = localStorage.getItem("timer_terakhir");

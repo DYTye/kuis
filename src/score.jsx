@@ -14,6 +14,8 @@ function score() {
     localStorage.removeItem("soal_terakhir");
     localStorage.removeItem("score_terakhir");
     localStorage.removeItem("timer_terakhir");
+    localStorage.removeItem("kumpulan_soal_terakhir");
+    
   }, []);
 
   const location = useLocation();
