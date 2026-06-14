@@ -4,6 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 function Kuis() {
   const [hasilData, setHasilData] = useState([]);
+  const [splash, setSplash] = useState(false);
   const [loading, setLoading] = useState(true);
   const [indexSoal, setIndexSoal] = useState(() => {
     const savedIndex = localStorage.getItem("soal_terakhir");
@@ -36,6 +37,12 @@ function Kuis() {
     }
     setUrutanOpsi(hasilAcak);
   }
+  function salahjawab() {
+    setSplash(true);
+    setTimeout(() => {
+      setSplash(false);
+    }, 100);
+  }
 
   useEffect(() => {
     async function fetchApi() {
@@ -49,8 +56,6 @@ function Kuis() {
         setHasilData(data.results);
         ranInt();
       }
-
-      
 
       if (indexSoal > 0) {
         setMulaiKuis(true);
@@ -122,7 +127,10 @@ function Kuis() {
       score = totalNiai + 10;
       setTotalNilai(score);
       localStorage.setItem("score_terakhir", score);
+    }else{
+      salahjawab();
     }
+
     if (indexSoal === 9) {
       setTimeout(() => {
         navigate("/score", { state: { score: score } });
@@ -152,9 +160,10 @@ function Kuis() {
     return { comment, stiker };
   }
   const ijep = jejep();
+  let iterasi = 1;
 
   useEffect(() => {
-    if(!mulaiKuis) return;
+    if (!mulaiKuis) return;
     let mesinTimer;
     let timer_terakhir;
     const savedDetik = localStorage.getItem("timer_terakhir");
@@ -246,6 +255,11 @@ function Kuis() {
       style={{ backgroundImage: "url('/bg.webp')" }}
       className=" bg-center scale  h-screen overflow-y-hidden space-y-3 font-mono"
     >
+      <div
+        className={`fixed inset-0 z-50 pointer-events-none bg-red-500 transition-opacity duration-150 ${
+          splash ? "opacity-100" : "opacity-0"
+        }`}
+      />
       <div className="m-20 absolute top-0 left-0 font-bold text-3xl text-[#565e51]">
         SCORE : {totalNiai}
       </div>
@@ -259,7 +273,7 @@ function Kuis() {
       <div className="max-w-sm  lg:max-w-fit relative w-fit mx-auto p-10 lg:p-20">
         <div className="absolute inset-0 bg-black/40 backdrop-blur-sm rounded-3xl"></div>
         <div className="mb-10 text-sm lg:text-xl font-bold text-center relative z-10 text-shadow-sm p-2 rounded-md text-white">
-          {decodeURIComponent(SoalAktif?.question)}
+          {indexSoal + 1}.{decodeURIComponent(SoalAktif?.question)}
         </div>
         <div className="flex flex-col lg:flex-row gap-2 max-w-sm lg:max-w-fit mx-auto relative z-10">
           <button
@@ -304,7 +318,7 @@ function Kuis() {
           <button
             onClick={() => {
               jawabDanNiali(3);
-
+              
               nextSoal();
 
               indexSoal != 9 ? ranInt() : null;
