@@ -4,6 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 function Kuis() {
   const [hasilData, setHasilData] = useState([]);
+  const [maintenance, setMaintenance] = useState(false);
   const [splash, setSplash] = useState(false);
   const [loading, setLoading] = useState(true);
   const [indexSoal, setIndexSoal] = useState(() => {
@@ -46,15 +47,21 @@ function Kuis() {
 
   useEffect(() => {
     async function fetchApi() {
-      const respons = await fetch(
-        "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
-      );
-      // const respons = await fetch("soal.json");
+      try {
+        const respons = await fetch(
+          "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986",
+        );
 
-      const data = await respons.json();
-      if (data.results && data.results.length > 0) {
-        setHasilData(data.results);
-        ranInt();
+        // const respons = await fetch("soal.json");
+        const data = await respons.json();
+        if (data.results && data.results.length > 0) {
+          setHasilData(data.results);
+          ranInt();
+        }
+      } catch {
+        setLoading(false);
+        setMaintenance(true);
+        return;
       }
 
       if (indexSoal > 0) {
@@ -127,7 +134,7 @@ function Kuis() {
       score = totalNiai + 10;
       setTotalNilai(score);
       localStorage.setItem("score_terakhir", score);
-    }else{
+    } else {
       salahjawab();
     }
 
@@ -198,17 +205,28 @@ function Kuis() {
 
   if (loading) {
     return (
-      <div className="h-screen bg-[#212326] flex items-center justify-center text-white text-2xl font-bold font-mono animate-pulse">
-        Kuis Dadakan, Dead or Alive?
-        <div className="hidden pointer-events-none absolute opacity-0 w-1 h-1 overflow-hidden">
-          <img src="0.png" alt="preload" />
-          <img src="1.png" alt="preload" />
-          <img src="2.png" alt="preload" />
-          <img src="3.png" alt="preload" />
-          <img src="4.png" alt="preload" />
-          <img src="5.png" alt="preload" />
-          <img src="6.png" alt="preload" />
-          <img src="bg.webp" alt="preload" />
+      <div>
+        <div className="h-screen bg-[#212326] flex items-center justify-center text-white text-2xl font-bold font-mono animate-pulse">
+          Kuis Dadakan, Dead or Alive?
+          <div className="hidden pointer-events-none absolute opacity-0 w-1 h-1 overflow-hidden">
+            <img src="0.png" alt="preload" />
+            <img src="1.png" alt="preload" />
+            <img src="2.png" alt="preload" />
+            <img src="3.png" alt="preload" />
+            <img src="4.png" alt="preload" />
+            <img src="5.png" alt="preload" />
+            <img src="6.png" alt="preload" />
+            <img src="bg.webp" alt="preload" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (maintenance) {
+    return (
+      <div>
+        <div className="h-screen bg-[#212326] flex items-center justify-center text-white text-2xl font-bold font-mono ">
+          Server Maintenance
         </div>
       </div>
     );
@@ -318,7 +336,7 @@ function Kuis() {
           <button
             onClick={() => {
               jawabDanNiali(3);
-              
+
               nextSoal();
 
               indexSoal != 9 ? ranInt() : null;
