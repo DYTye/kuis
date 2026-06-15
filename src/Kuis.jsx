@@ -231,6 +231,16 @@ function Kuis() {
       </div>
     );
   }
+
+  if (loading || hasilData.length === 0 || urutanOpsi === 0) {
+    return (
+      <div>
+        <div className="h-screen bg-[#212326] flex items-center justify-center text-white text-2xl font-bold font-mono ">
+          Loading Data
+        </div>
+      </div>
+    );
+  }
   if (!mulaiKuis) {
     return (
       <div className="relative  h-screen flex flex-col justify-center items-center gap-6 text-center px-4 ">
@@ -268,6 +278,7 @@ function Kuis() {
       </div>
     );
   }
+
   return (
     <div
       style={{ backgroundImage: "url('/bg.webp')" }}
