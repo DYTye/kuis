@@ -206,7 +206,7 @@ function Kuis() {
   if (loading) {
     return (
       <div>
-        <div className="h-screen bg-[#212326] flex items-center justify-center text-white text-2xl font-bold font-mono animate-pulse">
+        <div className="h-screen bg-[#212326] flex items-center justify-center text-center text-white text-2xl font-bold font-mono animate-pulse">
           Kuis Dadakan, Dead or Alive?
           <div className="hidden pointer-events-none absolute opacity-0 w-1 h-1 overflow-hidden">
             <img src="0.png" alt="preload" />
@@ -225,7 +225,7 @@ function Kuis() {
   if (maintenance) {
     return (
       <div>
-        <div className="h-screen bg-[#212326] flex items-center justify-center text-white text-2xl font-bold font-mono ">
+        <div className="h-screen bg-[#212326] flex items-center justify-center text-white text-2xl font-bold font-mono text-center">
           Server Maintenance
         </div>
       </div>
@@ -289,11 +289,11 @@ function Kuis() {
           splash ? "opacity-100" : "opacity-0"
         }`}
       />
-      <div className="m-20 absolute top-0 left-0 font-bold text-3xl text-[#565e51]">
+      <div className="m-20 absolute top-0 left-0 font-bold text-3xl text-white lg:text-black">
         SCORE : {totalNiai}
       </div>
-      <div className="m-20 absolute top-0 right-0 font-bold text-3xl text-[#565e51]">
-        {waktu}
+      <div className="m-20 absolute top-10 left-0 font-bold text-3xl text-white lg:text-black">
+        TIMER : {waktu}
       </div>
 
       <div className="h-1/2 flex justify-center mx-auto">
@@ -304,7 +304,7 @@ function Kuis() {
         <div className="mb-10 text-sm lg:text-xl font-bold text-center relative z-10 text-shadow-sm p-2 rounded-md text-white">
           {indexSoal + 1}.{decodeURIComponent(SoalAktif?.question)}
         </div>
-        <div className="flex flex-col lg:flex-row gap-2 max-w-sm lg:max-w-fit mx-auto relative z-10">
+        <div className="grid grid-cols-2 lg:flex lg:flex-row gap-2 max-w-sm lg:max-w-fit mx-auto relative z-10">
           <button
             onClick={() => {
               jawabDanNiali(0);
@@ -317,7 +317,7 @@ function Kuis() {
           >
             {decodeURIComponent(OpsiAktif[urutanOpsi[0]])}
           </button>
-          <br />
+         
           <button
             onClick={() => {
               jawabDanNiali(1);
@@ -330,7 +330,7 @@ function Kuis() {
           >
             {decodeURIComponent(OpsiAktif[urutanOpsi[1]])}
           </button>
-          <br />
+          
           <button
             onClick={() => {
               jawabDanNiali(2);
@@ -343,7 +343,7 @@ function Kuis() {
           >
             {decodeURIComponent(OpsiAktif[urutanOpsi[2]])}
           </button>
-          <br />
+          
           <button
             onClick={() => {
               jawabDanNiali(3);
